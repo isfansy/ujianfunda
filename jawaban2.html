@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Madding</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #6fcff0 0%, #4e4d4c 100%);
+        }
+        tr,td,table{
+            background-color: white;
+            border: 2px solid black;
+            border-collapse: collapse;
+            padding: 5px 50px;
+        }
+        div[id="box"] {
+            background-color: white;
+            width: 300px;
+            border: 5px solid black;
+            padding: 10px;
+            margin: 20px;
+            text-align: center;
+        }
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #No, #Keg, #har,#post,#act {
+            width: 100%;
+            padding: 1px 5px;
+            margin: 1px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div id="container">
+            <h1>Madding</h1>
+            <br>
+            <br>
+            <div id="box">
+                <br>
+                Username : <input type="text" id="Username"/> <br><br>
+                Password : <input type="password" id="Password"/> <br><br>
+                <button onclick="toLogin()">Login</button><br><br>
+            </div>
+            <h2></h2>
+        </div>
+        
+    </center>
+    <script>
+        class User{
+            constructor(a, b, c){
+                this.nama=a,
+                this.sandi=b,
+                this.role=c
+            }
+
+        }
+
+        class todo{
+            constructor(a,b,c,d,e){
+                this.no=a,
+                this.kegiatan=b,
+                this.hari=c,
+                this.poster=d,
+                this.act=e
+            }
+        }
+
+        var datauser=[
+            new User('admin','123','admin'),
+            new User('isfan','123','user')
+
+        ]
+
+        var listtodo= [
+            new todo('1','lari','senin','https://explorewisata.com/wp-content/uploads/2018/12/asyiknya-mancing-ikan-di-kolam-pemancingan-ikan-mabuk-manding-malang.jpg',''),
+            new todo('2','estafet','selasa','https://cdn.bmstores.co.uk/images/hpcProductImage/imgFull/327355-pringles-original-40g.jpg',''),
+            new todo('3','balet','rabu','https://img10.jd.id/Indonesia/s746x746_/nHBfsgAAEwAAABYAEqa5qwABvAM.jpg.webp')
+        ]
+
+        var listtodotoadd=[
+
+        ]
+
+        var dataUserLogin = {}
+        var indexedit=-1
+        var indexdel=-2
+        
+
+        const toLogin = ()=>{
+            var user=document.getElementById('Username').value
+            var katasandi=document.getElementById('Password').value
+            var login=false
+            for (var i=0;i<datauser.length;i++){
+                if(user == datauser[i].nama&&katasandi==datauser[i].sandi){
+                    login = true
+                    dataUserLogin=datauser[i]
+                }
+            }
+            if(login){
+                if(dataUserLogin.role=='admin'){
+                    document.getElementById("container").innerHTML = `
+                    <div id="box">
+                        <p> Halaman hanya dapat diakses Admin</p>
+                        </div>
+                        <br>
+                        <h1>Welcome, ${dataUserLogin.nama}</h1>
+                        <button id="logout" onclick="logout()">Logout</button>
+                        <br>
+                        <br>
+                        <table>
+                            <thead style="background-color:silver">
+                                <tr>
+                                    <td>NO<td>
+                                    <td>KEGIATAN<td>
+                                    <td>HARI<td>
+                                    <td>POSTER<td>
+                                    <td>ACT<td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><input type="number" id="No" class="additem" placeholder="No baru..."></td>
+                                    <td><input type="text" id="Keg" class="additem" placeholder="Kegiatan Baru..."></td>
+                                    <td><input type="text" id="har" class="additem" placeholder="Hari baru..."></td>
+                                    <td><input type="text" id="post" class="additem" placeholder="URL gambar baru..."></td>
+                                    <td><button onclick="onAddItemClick(), document.getElementById('No').value='', document.getElementById('Keg').value='',document.getElementById('har').value='', document.getElementById('post').value=''">Tambah Data</button></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                   `         
+                }printData(listtodo)
+            }else{
+                document.getElementById("containr").innerHTML=`
+                <h1>Welcome, ${dataUserLogin.nama}</h1>
+                <button id="logout" onclick="logout()">Logout</button>
+                <br>
+                <br>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>NO<td>
+                            <td>KEGIATAN<td>
+                            <td>HARI<td>
+                            <td>POSTER<td>
+                            <td>ACT<td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+            `
+            }
+
+        }
+    
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
